@@ -1,31 +1,32 @@
 from collections import UserDict
 
 class Field:
-    def __init__(self, value):
+    def __init__(self, value: str) -> None:
         self.value = value
     
 
 class Name(Field):
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, value: str) -> None:
+        super().__init__(value)
 
 
 class Phone(Field):
-    pass
+    def __init__(self, value: str) -> None:
+        super().__init__(value)
 
 
 class Record:
     
-    def __init__(self, name: Name, phones=None, email=None):
+    def __init__(self, name: Name, phone: Phone=None) -> None:
         self.name = name
-        self.phones = []
-        self.email = email
+        self.phones = [phone] if phone else []
+        
     
-    def add_phone(self, phone):
+    def add_phone(self, phone) -> None:
         if phone not in self.phones:
             self.phones.append(phone)
 
-    def delete_phone(self, phone):
+    def delete_phone(self, phone) -> None:
         self.phones.remove(phone)
 
     def edit_phone(self, old_phone, new_phone):
@@ -35,10 +36,10 @@ class Record:
 
 class AddressBook(UserDict):
     
-    def add_record(self, record: Record):
+    def add_record(self, record: Record) -> None:
         self.data[record.name.value] = record
     
-    def find_record(self, value):
+    def find_record(self, value: str) -> Record:
         return self.data.get(value)    
 
 
